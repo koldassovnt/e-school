@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.eschool.mapper.StudentsMapper">
+
+    <!--Query all-->
+    <select id="getAllStudents" resultType="student">
+        select * from students
+    </select>
+
+    <!--Save Student-->
+    <insert id="saveStudent" parameterType="student" useGeneratedKeys="true" keyProperty="id">
+        insert into students(name,surname,age,gpa)  values(#{name},#{surname},#{age},#{gpa})
+    </insert>
+
+    <!--adopt Id delete student-->
+    <delete id="deleteStudentById" parameterType="long">
+       delete from students where id =#{id}
+    </delete>
+
+    <!--Update this student information-->
+    <update id="updateStudent" parameterType="student">
+       update students set name = #{name},surname =  #{surname},age = #{age},gpa = #{gpa}
+       where id = #{id}
+    </update>
+
+    <!-- according to id query -->
+    <select id="getStudentById" parameterType="long" resultType="student">
+        select * from students where id=#{id}
+    </select>
+
+    <insert id="saveDefaultStudents">
+        insert into students (name,surname,age,gpa)
+        values ('Nurlan','Koldassov',20,3.38),
+               ('Asset','Amanzhol',20,3.68),
+               ('Aidos','Kaden',22,3.08),
+               ('Tanir','Abiken',19,2.77),
+               ('Azamat','Ruslanuly',21,3.67),
+               ('Dias', 'Nazarbayev',19,2.58),
+               ('Ermek','Bolatov',21,3.33),
+               ('Magzhan','Zhumabayev',23,3.69),
+               ('Akhmet','Baitursynov',24,3.99),
+               ('Mukhtar','Kabanbai',20,3.00);
+    </insert>
+
+    <insert id="createStudentsTable">
+        create table IF not exists students (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        name varchar(45) NOT NULL,
+        surname varchar(45) NOT NULL,
+        age int(3) NOT NULL,
+        gpa double NOT NULL,
+        PRIMARY KEY (id)
+        );
+    </insert>
+</mapper>
